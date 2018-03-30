@@ -39,7 +39,7 @@ ZEND_MINIT_FUNCTION(webapp)
 }
 ZEND_GINIT_FUNCTION(webapp)
 {
-	webapp_globals->q= 1;
+	webapp_globals->qqqqq= 1;
 }
 zend_module_dep webapp_dep[] = {
 	ZEND_MOD_REQUIRED("SimpleXML")
