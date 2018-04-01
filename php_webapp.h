@@ -1,5 +1,6 @@
 #ifndef PHP_WEBAPP_H
 #define PHP_WEBAPP_H
+#define PHP_WEBAPP_VERSION "1.0"
 #define PHP_COMPILER_ID "VC15"
 
 #include "php.h"

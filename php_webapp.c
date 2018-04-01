@@ -9,7 +9,7 @@ ZEND_METHOD(webapp, cache_get)
 	RETURN_TRUE;
 }
 const zend_function_entry webapp_fe[] = {
-	ZEND_FENTRY(__construct, NULL, NULL, ZEND_ACC_ABSTRACT | ZEND_ACC_FINAL)
+	ZEND_ABSTRACT_ME(webapp, __construct, NULL)
 	ZEND_ME(webapp, cache_add, NULL, ZEND_ACC_STATIC | ZEND_ACC_PUBLIC)
 	ZEND_ME(webapp, cache_get, NULL, ZEND_ACC_STATIC | ZEND_ACC_PUBLIC)
 	ZEND_FE_END
@@ -43,14 +43,23 @@ ZEND_MINIT_FUNCTION(webapp)
 
 	return SUCCESS;
 }
+ZEND_MINFO_FUNCTION(webapp)
+{
+	php_info_print_table_start();
+	php_info_print_table_header(2, "WebApp", "enabled");
+	php_info_print_table_row(2, "Author", "ZERONETA");
+	php_info_print_table_row(2, "Version", PHP_WEBAPP_VERSION);
+	php_info_print_table_end();
+	DISPLAY_INI_ENTRIES();
+}
 ZEND_GINIT_FUNCTION(webapp)
 {
-	webapp_globals->q= 1;
+	webapp_globals->q = 1;
 }
 zend_module_dep webapp_dep[] = {
 	ZEND_MOD_REQUIRED("SimpleXML")
 	ZEND_MOD_REQUIRED("mysqli")
-	ZEND_MOD_REQUIRED("gd2")
+	//ZEND_MOD_REQUIRED("gd2")
 	{NULL,NULL,NULL}
 };
 zend_module_entry webapp_module_entry = {
@@ -63,8 +72,8 @@ zend_module_entry webapp_module_entry = {
 	NULL,
 	NULL,
 	NULL,
-	NULL,
-	NULL,//version
+	ZEND_MINFO(webapp),
+	PHP_WEBAPP_VERSION,//version
 	ZEND_MODULE_GLOBALS(webapp),
 	ZEND_GINIT(webapp),
 	NULL,
