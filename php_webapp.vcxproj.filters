@@ -21,7 +21,10 @@
     <ClCompile Include="webapp_htt.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="webapp_sql.c">
+    <ClCompile Include="webapp_orm.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="webapp_gd2.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,7 +38,10 @@
     <ClInclude Include="php_webapp.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="webapp_sql.h">
+    <ClInclude Include="webapp_orm.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="webapp_gd2.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

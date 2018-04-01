@@ -7,7 +7,4 @@ ZEND_METHOD(webapp_htt, add)
 		Z_PARAM_STR(q)
 		Z_PARAM_STR(w)
 	ZEND_PARSE_PARAMETERS_END();
-
-
-
 }

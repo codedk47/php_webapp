@@ -130,7 +130,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>ZTS;ZEND_WIN32;ZEND_DEBUG=0;PHP_WIN32;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ZTS;ZEND_WIN32;ZEND_DEBUG=0;PHP_WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>D:\hpc\php-7.2.3-src;D:\hpc\php-7.2.3-src\main;D:\hpc\php-7.2.3-src\TSRM;D:\hpc\php-7.2.3-src\Zend</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
     </ClCompile>
@@ -145,12 +145,14 @@
     <ClInclude Include="php_webapp.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="webapp_htt.h" />
-    <ClInclude Include="webapp_sql.h" />
+    <ClInclude Include="webapp_orm.h" />
+    <ClInclude Include="webapp_gd2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="php_webapp.c" />
     <ClCompile Include="webapp_htt.c" />
-    <ClCompile Include="webapp_sql.c" />
+    <ClCompile Include="webapp_orm.c" />
+    <ClCompile Include="webapp_gd2.c" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="php_webapp.rc" />

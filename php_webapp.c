@@ -1,19 +1,17 @@
 #include "php_webapp.h"
 
-
-ZEND_FUNCTION(cache_add)
+ZEND_METHOD(webapp, cache_add)
 {
-
 	RETURN_TRUE;
 }
-ZEND_FUNCTION(cache_get)
+ZEND_METHOD(webapp, cache_get)
 {
-
 	RETURN_TRUE;
 }
-const zend_function_entry webapp_functions[] = {
-	ZEND_FE(cache_add, NULL)
-	ZEND_FE(cache_get, NULL)
+const zend_function_entry webapp_fe[] = {
+	ZEND_FENTRY(__construct, NULL, NULL, ZEND_ACC_ABSTRACT | ZEND_ACC_FINAL)
+	ZEND_ME(webapp, cache_add, NULL, ZEND_ACC_STATIC | ZEND_ACC_PUBLIC)
+	ZEND_ME(webapp, cache_get, NULL, ZEND_ACC_STATIC | ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 ZEND_MINIT_FUNCTION(webapp)
@@ -25,25 +23,34 @@ ZEND_MINIT_FUNCTION(webapp)
 		return FAILURE;
 	}
 	
-	zend_class_entry ce_webapp_htt;
-	INIT_CLASS_ENTRY(ce_webapp_htt, "webapp_htt", webapp_htt_fe);
-	webapp_htt_ce = zend_register_internal_class_ex(&ce_webapp_htt, ce_sxe TSRMLS_CC);
+	zend_class_entry ce;
+
+	INIT_CLASS_ENTRY(ce, "webapp_htt", webapp_htt_fe);
+	webapp_htt_ce = zend_register_internal_class_ex(&ce, ce_sxe);
 	webapp_htt_ce->ce_flags |= ZEND_ACC_PUBLIC;
 
-	zend_class_entry ce_webapp_sql;
-	INIT_CLASS_ENTRY(ce_webapp_sql, "webapp_htt", webapp_sql_fe);
-	webapp_sql_ce = zend_register_internal_class_ex(&ce_webapp_sql, ce_sql TSRMLS_CC);
-	webapp_sql_ce->ce_flags |= ZEND_ACC_PUBLIC;
+	INIT_CLASS_ENTRY(ce, "webapp_orm", webapp_orm_fe);
+	webapp_htt_ce = zend_register_internal_class_ex(&ce, ce_sql);
+	webapp_htt_ce->ce_flags |= ZEND_ACC_PUBLIC;
+
+	INIT_CLASS_ENTRY(ce, "webapp_gd2", webapp_gd2_fe);
+	webapp_gd2_ce = zend_register_internal_class(&ce);
+	webapp_gd2_ce->ce_flags |= ZEND_ACC_PUBLIC;
+
+	INIT_CLASS_ENTRY(ce, "wa", webapp_fe);
+	webapp_ce = zend_register_internal_class(&ce);
+	webapp_ce->ce_flags |= ZEND_ACC_FINAL | ZEND_ACC_ABSTRACT;
 
 	return SUCCESS;
 }
 ZEND_GINIT_FUNCTION(webapp)
 {
-	webapp_globals->qqqqq= 1;
+	webapp_globals->q= 1;
 }
 zend_module_dep webapp_dep[] = {
 	ZEND_MOD_REQUIRED("SimpleXML")
 	ZEND_MOD_REQUIRED("mysqli")
+	ZEND_MOD_REQUIRED("gd2")
 	{NULL,NULL,NULL}
 };
 zend_module_entry webapp_module_entry = {
@@ -51,7 +58,7 @@ zend_module_entry webapp_module_entry = {
 	NULL,
 	webapp_dep,
 	"WebApp",
-	webapp_functions,//functions
+	NULL,//functions
 	ZEND_MINIT(webapp),
 	NULL,
 	NULL,
